@@ -26,7 +26,7 @@ def save_performance(train_handler, data_loader, save_rootdir,
 	pred_y_key='model/y',
 	days_n:int=DEFAULT_DAYS_N,
 	**kwargs):
-	train_handler.load_model() # important, refresh to best model
+	train_handler.load_model(keys_to_change_d=_C.KEYS_TO_CHANGE_D) # important, refresh to best model
 	train_handler.model.eval() # important, model eval mode
 	dataset = data_loader.dataset # get dataset
 	dataset.reset_max_day() # always reset max day

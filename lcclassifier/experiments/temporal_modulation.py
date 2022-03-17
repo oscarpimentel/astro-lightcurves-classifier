@@ -23,7 +23,7 @@ DEFAULT_MIN_DAY = _C.DEFAULT_MIN_DAY
 def save_temporal_modulation(train_handler, data_loader, save_rootdir,
 	days_n:int=DEFAULT_DAYS_N,
 	**kwargs):
-	train_handler.load_model() # important, refresh to best model
+	train_handler.load_model(keys_to_change_d=_C.KEYS_TO_CHANGE_D) # important, refresh to best model
 	train_handler.model.eval() # model eval
 	dataset = data_loader.dataset # get dataset
 

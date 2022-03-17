@@ -268,7 +268,7 @@ for mp_grid in mp_grids: # MODEL CONFIGS
 			train_dataset_method_call='pre_epoch_step',
 			) # main fit
 	del s_train_loader_opt # to save memory
-	pt_model_train_handler.load_model() # important, refresh to best model
+	pt_model_train_handler.load_model(keys_to_change_d=_Clcclassifier.KEYS_TO_CHANGE_D) # important, refresh to best model
 
 	###################################################################################################################################################
 	import fuzzytorch
@@ -326,7 +326,7 @@ for mp_grid in mp_grids: # MODEL CONFIGS
 
 	### fine-tuning
 	for classifier_mid in range(0, main_args.classifier_mids):
-		pt_model_cache = deepcopy(pt_model_train_handler.load_model()) # copy
+		pt_model_cache = deepcopy(pt_model_train_handler.load_model(keys_to_change_d=_Clcclassifier.KEYS_TO_CHANGE_D)) # copy
 
 		lcset_name = f'{main_args.kf}@train'
 		r_train_dataset_opt = CustomDataset(lcset_name, lcdataset[lcset_name],
@@ -423,7 +423,7 @@ for mp_grid in mp_grids: # MODEL CONFIGS
 				train_dataset_method_call='pre_epoch_step',
 				) # main fit
 		del r_train_loader_opt
-		ft_model_train_handler.load_model() # important, refresh to best model
+		ft_model_train_handler.load_model(keys_to_change_d=_Clcclassifier.KEYS_TO_CHANGE_D) # important, refresh to best model
 
 		###################################################################################################################################################
 		from lcclassifier.experiments.performance import save_performance

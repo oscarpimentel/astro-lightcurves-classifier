@@ -13,7 +13,7 @@ ATTN_DROPOUT = _C.ATTN_DROPOUT
 
 ###################################################################################################################################################
 
-class TimeSelfAttnEncoderS(nn.Module): # TimeModSelfAttnEncoderS
+class TimeModSelfAttnEncoderS(nn.Module):
 	def __init__(self,
 		**kwargs):
 		super().__init__()
@@ -89,7 +89,7 @@ class TimeSelfAttnEncoderS(nn.Module): # TimeModSelfAttnEncoderS
 
 ###################################################################################################################################################
 
-class TimeSelfAttnEncoderP(nn.Module): # TimeModSelfAttnEncoderP
+class TimeModSelfAttnEncoderP(nn.Module):
 	def __init__(self,
 		**kwargs):
 		super().__init__()

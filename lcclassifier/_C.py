@@ -32,3 +32,6 @@ DEFAULT_DAYS_N_AN = 50 # 2 50
 ### DICTS
 CLASSES_STYLES = _Clchandler.CLASSES_STYLES
 COLOR_DICT = _Clchandler.COLOR_DICT
+
+### patches
+KEYS_TO_CHANGE_D = {'.te_film':'.time_film'} # patch to revive old state_dicts after changes in repo

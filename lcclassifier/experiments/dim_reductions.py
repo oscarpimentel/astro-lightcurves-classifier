@@ -37,7 +37,7 @@ def save_dim_reductions(train_handler, data_loader, save_rootdir,
 	encz_last: encoder representation-vector
 	encz_pre_last: classificator layer before softmax
 	'''
-	train_handler.load_model() # important, refresh to best model
+	train_handler.load_model(keys_to_change_d=_C.KEYS_TO_CHANGE_D) # important, refresh to best model
 	train_handler.model.eval() # important, model eval mode
 	dataset = data_loader.dataset # get dataset
 	dataset.reset_max_day() # always reset max day

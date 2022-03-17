@@ -51,7 +51,7 @@ class ModelBaseline(nn.Module):
 
 ###################################################################################################################################################
 
-class SerialTimeSelfAttn(ModelBaseline): # SerialTimeModSelfAttnModel
+class SerialTimeModSelfAttnModel(ModelBaseline):
 	def __init__(self, **raw_kwargs):
 		super().__init__()
 		### attributes
@@ -64,7 +64,7 @@ class SerialTimeSelfAttn(ModelBaseline): # SerialTimeModSelfAttnModel
 
 		### encoder
 		enc_embd_dims = self.mdl_kwargs['embd_dims']
-		encoder = attn_encoders.TimeSelfAttnEncoderS(**self.mdl_kwargs)
+		encoder = attn_encoders.TimeModSelfAttnEncoderS(**self.mdl_kwargs)
 		
 		### decoder
 		dec_mdl_kwargs = deepcopy(self.mdl_kwargs)
@@ -93,7 +93,7 @@ class SerialTimeSelfAttn(ModelBaseline): # SerialTimeModSelfAttnModel
 			'dec_emb':get_enc_emb_str(self.autoencoder['decoder'], self.band_names),
 		})
 
-class ParallelTimeSelfAttn(ModelBaseline): # ParallelTimeModSelfAttnModel
+class ParallelTimeModSelfAttnModel(ModelBaseline):
 	def __init__(self, **raw_kwargs):
 		super().__init__()
 
@@ -107,7 +107,7 @@ class ParallelTimeSelfAttn(ModelBaseline): # ParallelTimeModSelfAttnModel
 
 		### encoder
 		enc_embd_dims = self.mdl_kwargs['embd_dims']
-		encoder = attn_encoders.TimeSelfAttnEncoderP(**self.mdl_kwargs)
+		encoder = attn_encoders.TimeModSelfAttnEncoderP(**self.mdl_kwargs)
 			
 		### decoder
 		dec_mdl_kwargs = deepcopy(self.mdl_kwargs)
@@ -138,7 +138,7 @@ class ParallelTimeSelfAttn(ModelBaseline): # ParallelTimeModSelfAttnModel
 
 ###################################################################################################################################################
 
-class SerialRNNClassifier(ModelBaseline): # SerialRNNModel
+class SerialRNNModel(ModelBaseline):
 	def __init__(self, **raw_kwargs):
 		super().__init__()
 
@@ -174,7 +174,7 @@ class SerialRNNClassifier(ModelBaseline): # SerialRNNModel
 			'cell':f'{self.rnn_cell_name}',
 		})
 
-class ParallelRNNClassifier(ModelBaseline): # ParallelRNNModel
+class ParallelRNNModel(ModelBaseline):
 	def __init__(self, **raw_kwargs):
 		super().__init__()
 

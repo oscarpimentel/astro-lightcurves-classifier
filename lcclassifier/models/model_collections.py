@@ -94,7 +94,7 @@ class ModelCollections():
 	def s_attn_model(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.SerialTimeSelfAttn,
+				'C':mbls.SerialTimeModSelfAttnModel,
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
 				'dropout':self.dropout_d,
@@ -110,7 +110,7 @@ class ModelCollections():
 	def s_attn_models_te(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.SerialTimeSelfAttn,
+				'C':mbls.SerialTimeModSelfAttnModel,
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
 				'dropout':self.dropout_d,
@@ -126,7 +126,7 @@ class ModelCollections():
 	def s_attn_models_heads(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.SerialTimeSelfAttn,
+				'C':mbls.SerialTimeModSelfAttnModel,
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
 				'dropout':self.dropout_d,
@@ -142,7 +142,7 @@ class ModelCollections():
 	def s_attn_models_dummy(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.SerialTimeSelfAttn,
+				'C':mbls.SerialTimeModSelfAttnModel,
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
 				'dropout':self.dropout_d,
@@ -176,7 +176,7 @@ class ModelCollections():
 	def p_attn_model(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.ParallelTimeSelfAttn,
+				'C':mbls.ParallelTimeModSelfAttnModel,
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
 				'dropout':self.dropout_d,
@@ -192,7 +192,7 @@ class ModelCollections():
 	def p_attn_models_te(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.ParallelTimeSelfAttn,
+				'C':mbls.ParallelTimeModSelfAttnModel,
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
 				'dropout':self.dropout_d,
@@ -208,7 +208,7 @@ class ModelCollections():
 	def p_attn_models_heads(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.ParallelTimeSelfAttn,
+				'C':mbls.ParallelTimeModSelfAttnModel,
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
 				'dropout':self.dropout_d,
@@ -224,7 +224,7 @@ class ModelCollections():
 	def p_attn_models_dummy(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.ParallelTimeSelfAttn,
+				'C':mbls.ParallelTimeModSelfAttnModel,
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
 				'dropout':self.dropout_d,
@@ -259,7 +259,7 @@ class ModelCollections():
 	def s_rnn_models(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.SerialRNNClassifier,
+				'C':mbls.SerialRNNModel,
 				'rnn_cell_name':GDIter(*RNN_CELLS),
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
@@ -289,7 +289,7 @@ class ModelCollections():
 	def p_rnn_models(self):
 		gs = GridSeacher({
 			'mdl_kwargs':{
-				'C':mbls.ParallelRNNClassifier,
+				'C':mbls.ParallelRNNModel,
 				'rnn_cell_name':GDIter(*RNN_CELLS),
 				'embd_dims':self.gd_embd_dims,
 				'layers':self.enc_nof_layers,
