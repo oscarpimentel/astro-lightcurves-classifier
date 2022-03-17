@@ -58,6 +58,12 @@ def plot_temporal_modulation(rootdir, cfilename, kf, lcset_name, model_names,
 	percentile=PERCENTILE_PLOT,
 	shadow_alpha=SHADOW_ALPHA,
 	):
+	'''
+	gamma, beta = self.gamma_beta_f(temporal_encoding)
+	is equal to
+	alphas, betas = np.split(encoding@weight, 2, axis=-1)
+	This was tested (see ../../tests)
+	'''
 	for kmn,model_name in enumerate(model_names):
 		load_roodir = f'{rootdir}/{model_name}/{train_mode}/temporal_encoding/{cfilename}'
 		if not ftfiles.path_exists(load_roodir):
@@ -90,15 +96,17 @@ def plot_temporal_modulation(rootdir, cfilename, kf, lcset_name, model_names,
 			for kb,b in enumerate(band_names):
 				time = np.linspace(first_day, last_day, int(n)) # (t)
 				d = file()['temporal_encoding_info']['encoder'][f'ml_attn.{b}']['te_film']
-				weight = d['weight'].T # (2K,2M)>(2M,2K)
+				weight = d['weight'] # (2K,2M)
 				te_ws = d['te_ws'] # (2M)
 				te_phases = d['te_phases'] # (2M)
 				te_scales = d['te_scales'] # (2M)
 				sin_arg = te_ws[None,None,:]*time[None,:,None]+te_phases[None,None,:] # (1,t,2M)
 				encoding = te_scales[None,None,:]*np.sin(sin_arg) # (1,t,2M)
+				weight = weight.T # (2K,2M)>(2M,2K)
 				alphas, betas = np.split(encoding@weight, 2, axis=-1) # (1,t,2M)@(2M,2K)>(1,t,2K)>(1,t,K),(1,t,K)
 				scales = []
 				biases = []
+				# alphas = alphas*0+time[None,:,None] # sanity check
 				for kfu in range(0, alphas.shape[-1]):
 					dalpha = get_diff(time, alphas[0,:,kfu])**2 # (t)
 					dbeta = get_diff(time, betas[0,:,kfu])**2 # (t)

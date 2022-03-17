@@ -19,21 +19,21 @@ split_out = 2
 n = 2
 t = 5
 f = 4
-te_code = np.random.rand(n, t, f)
+encoding = np.random.rand(n, t, f)
 linear = Linear(f, f,
 	bias=False,
-	split_out=2,
+	split_out=split_out,
 	)
-print('te_code', te_code)
+print('encoding', encoding)
 
 ### torch
-a, b = linear(torch.Tensor(te_code))
+a, b = linear(torch.Tensor(encoding))
 print('a', a)
 print('b', b)
 
 ### numpy
 weight = linear.linear.weight.cpu().detach().numpy()
 weight = weight.T
-a, b = np.split(te_code@weight, split_out, axis=-1)
+a, b = np.split(encoding@weight, split_out, axis=-1)
 print('a', a)
 print('b', b)
