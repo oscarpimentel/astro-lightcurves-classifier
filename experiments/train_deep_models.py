@@ -301,7 +301,7 @@ for mp_grid in mp_grids: # MODEL CONFIGS
 	# save_reconstructions(pt_model_train_handler, s_train_loader, f'../save/{complete_model_name}/{train_mode}/reconstruction/{cfilename}', **pt_exp_kwargs) # sanity check / slow
 	# save_reconstructions(pt_model_train_handler, r_train_loader, f'../save/{complete_model_name}/{train_mode}/reconstruction/{cfilename}', **pt_exp_kwargs) # sanity check
 	# save_reconstructions(pt_model_train_handler, r_val_loader, f'../save/{complete_model_name}/{train_mode}/reconstruction/{cfilename}', **pt_exp_kwargs)
-	# save_reconstructions(pt_model_train_handler, r_test_loader, f'../save/{complete_model_name}/{train_mode}/reconstruction/{cfilename}', **pt_exp_kwargs)
+	save_reconstructions(pt_model_train_handler, r_test_loader, f'../save/{complete_model_name}/{train_mode}/reconstruction/{cfilename}', **pt_exp_kwargs)
 
 	if main_args.perform_slow_exps: # slow optional experiments
 		# save_dim_reductions(pt_model_train_handler, r_test_loader, f'../save/{complete_model_name}/{train_mode}/dim_reductions/{cfilename}', model_enc_key='encz_last', **pt_exp_kwargs) # very slow
@@ -318,7 +318,7 @@ for mp_grid in mp_grids: # MODEL CONFIGS
 		save_attnstats(pt_model_train_handler, r_test_loader, f'../save/{complete_model_name}/{train_mode}/attnstats/{cfilename}', **pt_exp_kwargs)
 
 	### extra experiments
-	# save_temporal_modulation(pt_model_train_handler, r_test_loader, f'../save/{complete_model_name}/{train_mode}/temporal_encoding/{cfilename}', **pt_exp_kwargs)
+	save_temporal_modulation(pt_model_train_handler, r_test_loader, f'../save/{complete_model_name}/{train_mode}/temporal_encoding/{cfilename}', **pt_exp_kwargs)
 	
 	###################################################################################################################################################
 	###################################################################################################################################################
