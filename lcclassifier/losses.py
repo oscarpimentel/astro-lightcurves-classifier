@@ -10,7 +10,7 @@ import fuzzytorch.models.seq_utils as seq_utils
 import math
 
 XENTROPY_K = _C.XENTROPY_K
-MSE_K = _C.MSE_K
+WMSE_K = _C.WMSE_K
 REC_LOSS_EPS = _C.REC_LOSS_EPS
 REC_LOSS_K = _C.REC_LOSS_K
 
