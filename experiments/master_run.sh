@@ -31,8 +31,8 @@ mc_gpu="--mc s_attn_model --gpu 2" # ATTN
 # mc_gpu="--mc p_attn_extra_models --gpu 2"
 
 extras=""\
-"--only_perform_exps 0 "\
-"--perform_slow_exps 0 "\
+"--only_perform_exps 1 "\
+"--perform_slow_exps 1 "\
 "--bypass_pre_training 0 "\
 "--batch_size 202 "\
 "--preserved_band . "\

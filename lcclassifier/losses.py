@@ -40,9 +40,9 @@ class LCWMSEReconstruction(FTLoss):
 			p_wmse_loss = (p_recx-p_decx)**2/(REC_LOSS_K*(p_rerror**2)+REC_LOSS_EPS) # (n,t,1)
 			p_wmse_loss = seq_utils.seq_avg_pooling(p_wmse_loss, p_onehot)[...,0] # (n,t,1)>(n,t)>(n)
 			p_wmse_loss = p_wmse_loss*0 if not self.preserved_band=='.' and not b==self.preserved_band else p_wmse_loss # for ablation
-			wmse_loss_bdict[b] = p_wmse_loss
+			wmse_loss_bdict[b] = p_wmse_loss # (n)
 
-		wmse_loss = torch.cat([wmse_loss_bdict[b][...,None] for b in self.band_names], axis=-1).mean(dim=-1) # (n,d)>(n)
+		wmse_loss = torch.cat([wmse_loss_bdict[b][...,None] for b in self.band_names], axis=-1).mean(dim=-1) # (n,b)>(n)
 		return wmse_loss # (n)
 
 ###################################################################################################################################################

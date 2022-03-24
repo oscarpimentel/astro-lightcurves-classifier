@@ -67,10 +67,10 @@ def save_performance(train_handler, data_loader, save_rootdir,
 
 						p_wmse_loss = (p_recx-p_decx)**2/(REC_LOSS_K*(p_rerror**2)+REC_LOSS_EPS) # (n,t,1)
 						p_wmse_loss = seq_utils.seq_avg_pooling(p_wmse_loss, p_onehot)[...,0] # (n,t,1)>(n,t)>(n)
-						wmse_loss_bdict[b] = p_wmse_loss[...,0] # (n,1)>(n)
+						wmse_loss_bdict[b] = p_wmse_loss # (n)
 
 					wmse_loss = torch.cat([wmse_loss_bdict[b][...,None] for b in dataset.band_names], axis=-1).mean(dim=-1) # (n,b)>(n)
-					wmse_loss = wmse_loss.mean()
+					wmse_loss = wmse_loss.mean() # (n)>()
 
 					thdays_rec_metrics_df.append(thday, {
 						'_thday':thday,
