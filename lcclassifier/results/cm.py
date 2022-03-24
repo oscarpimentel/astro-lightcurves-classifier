@@ -60,8 +60,9 @@ def plot_cm(rootdir, cfilename, kf, lcset_name, model_names,
 			bar(f'thday={thday:.3f} [days]')
 			brecall_xe = XError([f()[f'{dict_name}_df'].loc[f()[f'{dict_name}_df']['_thday']==thday]['b-recall'].item() for f in files])
 			bf1score_xe = XError([f()[f'{dict_name}_df'].loc[f()[f'{dict_name}_df']['_thday']==thday]['b-f1score'].item() for f in files])
+			baucroc_xe = XError([f()[f'{dict_name}_df'].loc[f()[f'{dict_name}_df']['_thday']==thday]['b-aucroc'].item() for f in files])
 			for k in range(0, len(brecall_xe)):
-				print(f'file_id={file_ids[k]}; b-recall={brecall_xe.get_item(k)}; b-f1score={bf1score_xe.get_item(k)}')
+				print(f'file_id={file_ids[k]}; b-recall={brecall_xe.get_item(k)}; b-f1score={bf1score_xe.get_item(k)}; b-aucroc={baucroc_xe.get_item(k)};')
 				
 			cm = ConfusionMatrix([f()['thdays_cm'][thday] for f in files], class_names)
 			cm.reorder_classes(new_order_class_names)

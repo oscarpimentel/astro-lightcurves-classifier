@@ -16,7 +16,7 @@ REC_LOSS_K = _C.REC_LOSS_K
 
 ###################################################################################################################################################
 
-class LCMSEReconstruction(FTLoss):
+class LCWMSEReconstruction(FTLoss):
 	def __init__(self, name, weight_key,
 		band_names=None,
 		preserved_band=None,
@@ -27,7 +27,7 @@ class LCMSEReconstruction(FTLoss):
 
 	def compute_loss(self, tdict,
 		**kwargs):
-		mse_loss_bdict = {}
+		wmse_loss_bdict = {}
 		for kb,b in enumerate(self.band_names):
 			p_onehot = tdict[f'input/onehot.{b}'][...,0] # (n,t)
 			#p_rtime = tdict[f'input/rtime.{b}'][...,0] # (n,t)
@@ -37,13 +37,13 @@ class LCMSEReconstruction(FTLoss):
 			p_recx = tdict[f'target/recx.{b}'] # (n,t,1)
 			p_decx = tdict[f'model/decx.{b}'] # (n,t,1)
 
-			p_mse_loss = (p_recx-p_decx)**2/(REC_LOSS_K*(p_rerror**2)+REC_LOSS_EPS) # (n,t,1)
-			p_mse_loss = seq_utils.seq_avg_pooling(p_mse_loss, p_onehot)[...,0] # (n,t,1)>(n,t)>(n)
-			p_mse_loss = p_mse_loss*0 if not self.preserved_band=='.' and not b==self.preserved_band else p_mse_loss # for ablation
-			mse_loss_bdict[b] = p_mse_loss
+			p_wmse_loss = (p_recx-p_decx)**2/(REC_LOSS_K*(p_rerror**2)+REC_LOSS_EPS) # (n,t,1)
+			p_wmse_loss = seq_utils.seq_avg_pooling(p_wmse_loss, p_onehot)[...,0] # (n,t,1)>(n,t)>(n)
+			p_wmse_loss = p_wmse_loss*0 if not self.preserved_band=='.' and not b==self.preserved_band else p_wmse_loss # for ablation
+			wmse_loss_bdict[b] = p_wmse_loss
 
-		mse_loss = torch.cat([mse_loss_bdict[b][...,None] for b in self.band_names], axis=-1).mean(dim=-1) # (n,d)>(n)
-		return mse_loss # (n)
+		wmse_loss = torch.cat([wmse_loss_bdict[b][...,None] for b in self.band_names], axis=-1).mean(dim=-1) # (n,d)>(n)
+		return wmse_loss # (n)
 
 ###################################################################################################################################################
 
@@ -90,7 +90,7 @@ class LCCompleteLoss(FTLoss):
 		target_y_key='target/y',
 		pred_y_key='model/y',
 		binxentropy_k=XENTROPY_K,
-		mse_k=MSE_K,
+		wmse_k=WMSE_K,
 		**kwargs):
 		super().__init__(name, weight_key)
 		self.band_names = band_names
@@ -100,7 +100,7 @@ class LCCompleteLoss(FTLoss):
 		self.target_y_key = target_y_key
 		self.pred_y_key = pred_y_key
 		self.binxentropy_k = binxentropy_k
-		self.mse_k = mse_k
+		self.wmse_k = wmse_k
 		self.reset()
 
 	def reset(self):
@@ -110,7 +110,7 @@ class LCCompleteLoss(FTLoss):
 			self.target_y_key,
 			self.pred_y_key,
 			)
-		self.mse = LCMSEReconstruction('', None,
+		self.wmse = LCWMSEReconstruction('', None,
 			self.band_names,
 			self.preserved_band,
 			)
@@ -118,10 +118,10 @@ class LCCompleteLoss(FTLoss):
 	def compute_loss(self, tdict,
 		**kwargs):
 		binxentropy_loss = self.binxentropy.compute_loss(tdict, **kwargs)*self.binxentropy_k # (n)
-		mse_loss = self.mse.compute_loss(tdict, **kwargs)*self.mse_k # (n)
+		wmse_loss = self.wmse.compute_loss(tdict, **kwargs)*self.wmse_k # (n)
 		d = {
-			'_loss':binxentropy_loss+mse_loss, # (n)
+			'_loss':binxentropy_loss+wmse_loss, # (n)
 			'binxentropy':binxentropy_loss, # (n)
-			'mse':mse_loss, # (n)
+			'wmse':wmse_loss,
 			}
 		return d

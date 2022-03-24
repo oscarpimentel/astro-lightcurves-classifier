@@ -310,7 +310,7 @@ for mp_grid in mp_grids: # MODEL CONFIGS
 		# save_attnscores_animation(pt_model_train_handler, s_train_loader, f'../save/{complete_model_name}/{train_mode}/attnscores/{cfilename}', **pt_exp_kwargs) # sanity check / slow
 		# save_attnscores_animation(pt_model_train_handler, r_train_loader, f'../save/{complete_model_name}/{train_mode}/attnscores/{cfilename}', **pt_exp_kwargs) # sanity check
 		# save_attnscores_animation(pt_model_train_handler, r_val_loader, f'../save/{complete_model_name}/{train_mode}/attnscores/{cfilename}', **pt_exp_kwargs)
-		# save_attnscores_animation(pt_model_train_handler, r_test_loader, f'../save/{complete_model_name}/{train_mode}/attnscores/{cfilename}', **pt_exp_kwargs)
+		save_attnscores_animation(pt_model_train_handler, r_test_loader, f'../save/{complete_model_name}/{train_mode}/attnscores/{cfilename}', **pt_exp_kwargs)
 
 		# save_attnstats(pt_model_train_handler, s_train_loader, f'../save/{complete_model_name}/{train_mode}/attnstats/{cfilename}', **pt_exp_kwargs)
 		# save_attnstats(pt_model_train_handler, r_train_loader, f'../save/{complete_model_name}/{train_mode}/attnstats/{cfilename}', **pt_exp_kwargs)

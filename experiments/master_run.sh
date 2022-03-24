@@ -10,7 +10,7 @@ run_script(){
 
 ### serial
 # mc_gpu="--mc s_rnn_models --gpu 0" # RNN
-# mc_gpu="--mc s_attn_model --gpu 2" # ATTN
+mc_gpu="--mc s_attn_model --gpu 2" # ATTN
 
 # extras
 # mc_gpu="--mc s_attn_models_te --gpu 0"
@@ -21,7 +21,7 @@ run_script(){
 
 ### parallel
 # mc_gpu="--mc p_rnn_models --gpu 1" # RNN
-mc_gpu="--mc p_attn_model --gpu 0" # ATTN
+# mc_gpu="--mc p_attn_model --gpu 0" # ATTN
 
 # extras
 # mc_gpu="--mc p_attn_models_te --gpu 1"
@@ -31,7 +31,7 @@ mc_gpu="--mc p_attn_model --gpu 0" # ATTN
 # mc_gpu="--mc p_attn_extra_models --gpu 2"
 
 extras=""\
-"--only_perform_exps 1 "\
+"--only_perform_exps 0 "\
 "--perform_slow_exps 0 "\
 "--bypass_pre_training 0 "\
 "--batch_size 202 "\

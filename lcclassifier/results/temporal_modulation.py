@@ -95,7 +95,10 @@ def plot_temporal_modulation(rootdir, cfilename, kf, lcset_name, model_names,
 		for kfile,file in enumerate(files):
 			for kb,b in enumerate(band_names):
 				time = np.linspace(first_day, last_day, int(n)) # (t)
-				d = file()['temporal_encoding_info']['encoder'][f'ml_attn.{b}']['te_film']
+				try:
+					d = file()['temporal_encoding_info']['encoder'][f'ml_attn.{b}']['te_film'] # patch
+				except:
+					d = file()['temporal_encoding_info']['encoder'][f'ml_attn.{b}']['time_film'] # patch
 				weight = d['weight'] # (2K,2M)
 				te_ws = d['te_ws'] # (2M)
 				te_phases = d['te_phases'] # (2M)

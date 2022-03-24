@@ -54,8 +54,8 @@ def save_performance(train_handler, data_loader, save_rootdir,
 						tdicts += [_tdict]
 					tdict = minibatch_dict_collate(tdicts)
 
-					### mse
-					mse_loss_bdict = {}
+					### wmse
+					wmse_loss_bdict = {}
 					for kb,b in enumerate(dataset.band_names):
 						p_onehot = tdict[f'input/onehot.{b}'][...,0] # (n,t)
 						#p_rtime = tdict[f'input/rtime.{b}'][...,0] # (n,t)
@@ -65,16 +65,16 @@ def save_performance(train_handler, data_loader, save_rootdir,
 						p_recx = tdict[f'target/recx.{b}'] # (n,t,1)
 						p_decx = tdict[f'model/decx.{b}'] # (n,t,1)
 
-						p_mse_loss = (p_recx-p_decx)**2/(REC_LOSS_K*(p_rerror**2)+REC_LOSS_EPS) # (n,t,1)
-						p_mse_loss = seq_utils.seq_avg_pooling(p_mse_loss, p_onehot)[...,0] # (n,t,1)>(n,t)>(n)
-						mse_loss_bdict[b] = p_mse_loss[...,0] # (n,1)>(n)
+						p_wmse_loss = (p_recx-p_decx)**2/(REC_LOSS_K*(p_rerror**2)+REC_LOSS_EPS) # (n,t,1)
+						p_wmse_loss = seq_utils.seq_avg_pooling(p_wmse_loss, p_onehot)[...,0] # (n,t,1)>(n,t)>(n)
+						wmse_loss_bdict[b] = p_wmse_loss[...,0] # (n,1)>(n)
 
-					mse_loss = torch.cat([mse_loss_bdict[b][...,None] for b in dataset.band_names], axis=-1).mean(dim=-1) # (n,b)>(n)
-					mse_loss = mse_loss.mean()
+					wmse_loss = torch.cat([wmse_loss_bdict[b][...,None] for b in dataset.band_names], axis=-1).mean(dim=-1) # (n,b)>(n)
+					wmse_loss = wmse_loss.mean()
 
 					thdays_rec_metrics_df.append(thday, {
 						'_thday':thday,
-						'mse':tensor_to_numpy(mse_loss),
+						'wmse':tensor_to_numpy(wmse_loss),
 						})
 
 					### class prediction
@@ -99,7 +99,7 @@ def save_performance(train_handler, data_loader, save_rootdir,
 					### progress bar
 					recall = {c:metrics_cdict[c]['recall'] for c in dataset.class_names}
 					bmetrics_dict = {k:metrics_dict[k] for k in metrics_dict.keys() if 'b-' in k}
-					bar([f'lcset_name={dataset.lcset_name}; _thday={thday:.3f}', f'mse_loss={mse_loss}', f'bmetrics_dict={bmetrics_dict}', f'recall={recall}'])
+					bar([f'lcset_name={dataset.lcset_name}; _thday={thday:.3f}', f'wmse_loss={wmse_loss}', f'bmetrics_dict={bmetrics_dict}', f'recall={recall}'])
 
 					### all bands observed
 					s_onehot = tdict[f'input/s_onehot'] # (n,t,b)
