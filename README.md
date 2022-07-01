@@ -19,20 +19,28 @@
 
 ---
 
-models
-https://github.com/oscarpimentel/astro-lightcurves-classifier/blob/master/lcclassifier/models/model_baselines.py
+- models [lcclassifier/models/model_baselines.py](lcclassifier/models/model_baselines.py)
+- TimeModAttn encoders [lcclassifier/models/attn/encoders.py](lcclassifier/models/attn/encoders.py)
+- decoders: [lcclassifier/models/rnn/decoders.py](lcclassifier/models/rnn/decoders.py)
+- classifier: [lcclassifier/models/classifiers.py](lcclassifier/models/classifiers.py)
 
-TimeModAttn encoders
-https://github.com/oscarpimentel/astro-lightcurves-classifier/blob/master/lcclassifier/models/attn/encoders.py
 
-TimeModAttn
-https://github.com/oscarpimentel/fuzzy-torch/blob/master/fuzzytorch/models/attn/basics.py
+(in [fuzzy-torch](https://github.com/oscarpimentel/fuzzy-torch))
+- TimeModAttn [fuzzytorch/models/attn/basics.py](https://github.com/oscarpimentel/fuzzy-torch/blob/master/fuzzytorch/models/attn/basics.py)
+- TimeFiLM [fuzzytorch/models/others.py](https://github.com/oscarpimentel/fuzzy-torch/blob/master/fuzzytorch/models/others.py)
 
-TimeFiLM
-https://github.com/oscarpimentel/fuzzy-torch/blob/master/fuzzytorch/models/others.py
+---
+## Data
 
-decoders
-https://github.com/oscarpimentel/astro-lightcurves-classifier/blob/master/lcclassifier/models/rnn/decoders.py
+surveys-data: https://drive.google.com/drive/folders/1pkDu-iF_vJTWrGxVmeJJls7Z8Q1jd3ek?usp=sharing
 
-classifier
-https://github.com/oscarpimentel/astro-lightcurves-classifier/blob/master/lcclassifier/models/classifiers.py
+
+surveys-save: https://drive.google.com/drive/folders/1g_9ZRypfL8__ml3vYx2gxCpZWzf3iORd?usp=sharing
+
+Public data for this project: https://drive.google.com/drive/folders/1jyc0NwG0SLnrtf322eTv3s02ezeZEXyS?usp=sharing
+
+`save/`
+
+---
+## References
+Feel free to see the thesis associated with this work here: ???
