@@ -66,6 +66,6 @@ class LogStandardScaler():
 		return z
 	
 	def inverse_transform(self, z):
-		log_x = self.scaler.inverse_transform(z)
+		log_x = self.scaler.inverse_transform(z) # np.log(x+self.eps)
 		x = np.exp(log_x)-self.eps
 		return x

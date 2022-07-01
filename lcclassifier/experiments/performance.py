@@ -92,8 +92,6 @@ def save_performance(train_handler, data_loader, save_rootdir,
 					thdays_class_metrics_df.append(thday, update_dicts([{'_thday':thday}, metrics_dict]))
 					for c in dataset.class_names:
 						thdays_class_metrics_cdf[c].append(thday, update_dicts([{'_thday':thday}, metrics_cdict[c]]))
-					
-					### confusion matrix
 					thdays_cm[thday] = cm
 
 					### progress bar
@@ -109,7 +107,7 @@ def save_performance(train_handler, data_loader, save_rootdir,
 					all_bands_y_true = y_true[all_bands]
 					unique_classes = np.unique(all_bands_y_true)
 					if len(unique_classes)==len(dataset.class_names):
-						metrics_cdict, metrics_dict, cm = fcm.get_multiclass_metrics(all_bands_y_pred_p, all_bands_y_true, dataset.class_names)
+						metrics_cdict, metrics_dict, _ = fcm.get_multiclass_metrics(all_bands_y_pred_p, all_bands_y_true, dataset.class_names)
 						thdays_class_metrics_all_bands_df.append(thday, update_dicts([{'_thday':thday}, metrics_dict]))
 						for c in dataset.class_names:
 							thdays_class_metrics_all_bands_cdf[c].append(thday, update_dicts([{'_thday':thday}, metrics_cdict[c]]))
