@@ -21,30 +21,30 @@ DEFAULT_MIN_DAY = _C.DEFAULT_MIN_DAY
 ###################################################################################################################################################
 
 def save_temporal_modulation(train_handler, data_loader, save_rootdir,
-	days_n:int=DEFAULT_DAYS_N,
-	**kwargs):
-	train_handler.load_model(keys_to_change_d=_C.KEYS_TO_CHANGE_D) # important, refresh to best model
-	train_handler.model.eval() # model eval
-	dataset = data_loader.dataset # get dataset
+    days_n:int=DEFAULT_DAYS_N,
+    **kwargs):
+    train_handler.load_model(keys_to_change_d=_C.KEYS_TO_CHANGE_D) # important, refresh to best model
+    train_handler.model.eval() # model eval
+    dataset = data_loader.dataset # get dataset
 
-	if not hasattr(train_handler.model, 'get_info'):
-		return
+    if not hasattr(train_handler.model, 'get_info'):
+        return
 
-	days = np.linspace(DEFAULT_MIN_DAY, dataset.max_day, days_n)#[::-1]
-	temporal_encoding_info = train_handler.model.get_info()
-	#print('temporal_encoding_info',temporal_encoding_info)
+    days = np.linspace(DEFAULT_MIN_DAY, dataset.max_day, days_n)#[::-1]
+    temporal_encoding_info = train_handler.model.get_info()
+    #print('temporal_encoding_info',temporal_encoding_info)
 
-	results = {
-		'model_name':train_handler.model.get_name(),
-		'survey':dataset.survey,
-		'band_names':dataset.band_names,
-		'class_names':dataset.class_names,
+    results = {
+        'model_name':train_handler.model.get_name(),
+        'survey':dataset.survey,
+        'band_names':dataset.band_names,
+        'class_names':dataset.class_names,
 
-		'days':days,
-		'temporal_encoding_info':temporal_encoding_info,
-	}
+        'days':days,
+        'temporal_encoding_info':temporal_encoding_info,
+    }
 
-	### save file
-	save_filedir = f'{save_rootdir}/{dataset.lcset_name}/id={train_handler.id}.d'
-	files.save_pickle(save_filedir, results) # save file
-	return
+    ### save file
+    save_filedir = f'{save_rootdir}/{dataset.lcset_name}/id={train_handler.id}.d'
+    files.save_pickle(save_filedir, results) # save file
+    return

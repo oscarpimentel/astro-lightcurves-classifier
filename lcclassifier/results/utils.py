@@ -66,8 +66,8 @@ def get_fmodel_name(model_name,
 
 
 def get_sorted_model_names(model_names,
-    					   merged=True,
-    					   ):
+                           merged=True,
+                           ):
     p_model_names = []
     s_model_names = []
     for model_name in model_names:

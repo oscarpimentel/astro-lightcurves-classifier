@@ -21,9 +21,9 @@ t = 5
 f = 4
 encoding = np.random.rand(n, t, f)
 linear = Linear(f, f,
-	bias=False,
-	split_out=split_out,
-	)
+    bias=False,
+    split_out=split_out,
+    )
 print('encoding', encoding)
 
 ### torch

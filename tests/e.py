@@ -33,5 +33,5 @@ print(f'state_dict={model.state_dict()}')
 print(f'state_dict_copy={state_dict_copy}')
 print(f'state_dict_deepcopy={state_dict_deepcopy}')
 for k in model.state_dict().keys():
-	print(model.state_dict()[k].equal(state_dict_copy[k]))
-	print(model.state_dict()[k].equal(state_dict_deepcopy[k]))
+    print(model.state_dict()[k].equal(state_dict_copy[k]))
+    print(model.state_dict()[k].equal(state_dict_deepcopy[k]))

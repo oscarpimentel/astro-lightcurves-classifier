@@ -19,31 +19,31 @@ import pandas as pd
 ###################################################################################################################################################
 
 def save_model_info(train_handler, data_loader, save_rootdir,
-	**kwargs):
-	train_handler.load_model(keys_to_change_d=_C.KEYS_TO_CHANGE_D) # important, refresh to best model
-	train_handler.model.eval() # model eval
-	dataset = data_loader.dataset # get dataset
-	
-	results = {
-		'model_name':train_handler.model.get_name(),
-		'survey':dataset.survey,
-		'band_names':dataset.band_names,
-		'class_names':dataset.class_names,
+    **kwargs):
+    train_handler.load_model(keys_to_change_d=_C.KEYS_TO_CHANGE_D) # important, refresh to best model
+    train_handler.model.eval() # model eval
+    dataset = data_loader.dataset # get dataset
+    
+    results = {
+        'model_name':train_handler.model.get_name(),
+        'survey':dataset.survey,
+        'band_names':dataset.band_names,
+        'class_names':dataset.class_names,
 
-		'parameters':get_nof_parameters(train_handler.model),
-		'monitors':{},
-	}
-	for lmonitor in train_handler.lmonitors:
-		results['monitors'][lmonitor.name] = {
-			'save_dict':lmonitor.get_save_dict(),
-			'best_epoch':lmonitor.get_best_epoch(),
-			'time_per_iteration':lmonitor.get_time_per_iteration(),
-			#'time_per_epoch_set':{set_name:lmonitor.get_time_per_epoch_set(set_name) for set_name in ['train', 'val']},
-			'time_per_epoch':lmonitor.get_time_per_epoch(),
-			'total_time':lmonitor.get_total_time(),
-		}
+        'parameters':get_nof_parameters(train_handler.model),
+        'monitors':{},
+    }
+    for lmonitor in train_handler.lmonitors:
+        results['monitors'][lmonitor.name] = {
+            'save_dict':lmonitor.get_save_dict(),
+            'best_epoch':lmonitor.get_best_epoch(),
+            'time_per_iteration':lmonitor.get_time_per_iteration(),
+            #'time_per_epoch_set':{set_name:lmonitor.get_time_per_epoch_set(set_name) for set_name in ['train', 'val']},
+            'time_per_epoch':lmonitor.get_time_per_epoch(),
+            'total_time':lmonitor.get_total_time(),
+        }
 
-	### save file
-	save_filedir = f'{save_rootdir}/{dataset.lcset_name}/id={train_handler.id}.d'
-	files.save_pickle(save_filedir, results) # save file
-	return
+    ### save file
+    save_filedir = f'{save_rootdir}/{dataset.lcset_name}/id={train_handler.id}.d'
+    files.save_pickle(save_filedir, results) # save file
+    return
