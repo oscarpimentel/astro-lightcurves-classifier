@@ -19,10 +19,10 @@ from .utils import check_attn_scores
 SCORES_LAYER = -1
 EPS = _C.EPS
 
-###################################################################################################################################################
 
 def local_slope_f(time, m, n):
 	return time*m+n
+
 
 def get_local_slope(days, obs, j, dj,
 	p0=[0,0],
@@ -37,7 +37,6 @@ def get_local_slope(days, obs, j, dj,
 	local_slope_m, local_slope_n = popt
 	return local_slope_m, local_slope_n, sub_days, sub_obs
 
-###################################################################################################################################################
 
 def save_attnstats(train_handler, data_loader, save_rootdir,
 	eps:float=EPS,
